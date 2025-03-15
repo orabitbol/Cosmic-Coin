@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { userStore } from "./store/userStore";
-import Home from "./pages/home/Home";
 import GameLobby from "./pages/gameLobby/GameLobby";
 import GamePage from "./pages/gamePage/GamePage";
 import LoginPage from "./pages/loginPage/LoginPage";
