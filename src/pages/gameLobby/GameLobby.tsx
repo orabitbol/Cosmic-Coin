@@ -6,8 +6,17 @@ import { logout } from "../../firebase";
 
 import "./gameLobby.scss";
 import GameList from "../../component/gameList.tsx/GameList";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const GameLobby = observer(() => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!userStore.user) {
+      navigate("/login");
+    }
+  }, [userStore.user, navigate]);
   return (
     <Container className="lobby-container">
       <div className="lobby-header">
