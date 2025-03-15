@@ -9,13 +9,10 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
-console.log("🔍 Checking Firebase env variables...");
-console.log("🔥 API Key:", import.meta.env.VITE_FIREBASE_API_KEY);
-console.log("🔥 Auth Domain:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
+
 if (!import.meta.env.VITE_FIREBASE_API_KEY) {
   throw new Error("🚨 Missing Firebase API Key!");
 }
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -25,6 +22,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
+console.log("🔍 Checking Firebase env variables...");
+console.log("🔥 API Key:", import.meta.env.NEXT_PUBLIC_FIREBASE_API_KEY || "🚨 MISSING!");
+console.log("🔥 Auth Domain:", import.meta.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "🚨 MISSING!");
+console.log("🔥 Project ID:", import.meta.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "🚨 MISSING!");
+console.log("🔥 Storage Bucket:", import.meta.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "🚨 MISSING!");
+console.log("🔥 Messaging Sender ID:", import.meta.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "🚨 MISSING!");
+console.log("🔥 App ID:", import.meta.env.NEXT_PUBLIC_FIREBASE_APP_ID || "🚨 MISSING!");
 
 // 🔹 אתחול Firebase
 const app = initializeApp(firebaseConfig);
@@ -32,8 +36,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
-console.log("🔥 API KEY:", import.meta.env.VITE_FIREBASE_API_KEY);
-console.log("🔥 AUTH DOMAIN:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
+
 
 // 🔹 התחברות עם Google
 export const signInWithGoogle = async () => {
@@ -68,6 +71,7 @@ export const signInWithEmail = async (email: string, password: string) => {
   try {
     await signInWithEmailAndPassword(auth, email, password);
     return null; // ✅ No error, return null
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("❌ Error signing in:", error.code);
     console.log("error.code: ", error.code);
