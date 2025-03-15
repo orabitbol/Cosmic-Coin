@@ -7,7 +7,8 @@ import {
     signOut, 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signInWithPopup
+    signInWithPopup,
+    AuthError
     
   } from "firebase/auth";
   import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
@@ -45,7 +46,6 @@ import {
     }
   };
   
-  // 🔹 התחברות עם Email/Password
   export const signUpWithEmail = async (email: string, password: string) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -55,15 +55,39 @@ import {
     }
   };
   
-  export const signInWithEmail = async (email: string, password: string) => {
+
+  
+
+  export const signInWithEmail = async (email: string, password: string): Promise<string | null> => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      return null; // No error (successful login)
     } catch (error) {
-      console.error("Error signing in:", error);
+      if (error instanceof Error) {
+        return handleAuthError(error as AuthError);
+      }
+      return "⚠️ שגיאה בלתי צפויה, נסה שוב.";
+    }
+  };
+
+  const handleAuthError = (error: AuthError): string => {
+    switch (error.code) {
+      case "auth/invalid-email":
+        return "⚠️ כתובת המייל לא תקינה.";
+      case "auth/user-not-found":
+        return "⚠️ המשתמש לא נמצא במערכת.";
+      case "auth/wrong-password":
+        return "⚠️ סיסמה שגויה.";
+      case "auth/user-disabled":
+        return "⚠️ חשבון זה הושבת.";
+      case "auth/too-many-requests":
+        return "⚠️ יותר מדי ניסיונות שגויים, נסה שוב מאוחר יותר.";
+      default:
+        return "⚠️ שגיאה בלתי צפויה, נסה שוב.";
     }
   };
   
-  // 🔹 שמירת המשתמש ב-Firestore אם לא קיים
+
   const createUserIfNotExists = async (uid: string, email: string) => {
     const userRef = doc(db, "users", uid);
     const userSnap = await getDoc(userRef);

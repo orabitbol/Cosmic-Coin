@@ -9,7 +9,7 @@ const Login = observer(() => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,19 +21,14 @@ const Login = observer(() => {
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-    setError("");
+    setError(""); 
 
-    try {
-      await signInWithEmail(email, password);
-    } catch (err) {
-      if (err instanceof Error) {
-        setError("⚠️ שם המשתמש או הסיסמה שגויים.");
-      } else {
-        setError("⚠️ שגיאה בלתי צפויה, נסה שוב.");
-      }
-    } finally {
-      setIsLoading(false);
+    const errorMessage = await signInWithEmail(email, password);
+    if (errorMessage) {
+      setError(errorMessage); 
     }
+    
+    setIsLoading(false);
   };
 
   return (
@@ -42,12 +37,9 @@ const Login = observer(() => {
         <p>אתה כבר מחובר, מעביר ללובי...</p>
       ) : (
         <form onSubmit={handleSignIn} className="login-form">
-          <h2>🎮 התחברות</h2>
-          {error && (
-            <div className="error-message">
-              <span>❌</span> {error}
-            </div>
-          )}
+          <h2>🎮 <span className="neon-text">התחברות</span></h2>
+          
+          {error && <p className="error-message">{error}</p>}
 
           <div className="input-group">
             <input
@@ -70,16 +62,14 @@ const Login = observer(() => {
           </div>
 
           <button type="submit" disabled={isLoading}>
-            {isLoading ? "🔄 מתחבר..." : "🚀 התחבר"}
+            🚀 {isLoading ? "מתחבר..." : "התחבר"}
           </button>
 
           <button type="button" onClick={signInWithGoogle} disabled={isLoading}>
-            🔵 התחברות עם Google
+            🔵 התחברות עם <b>GOOGLE</b>
           </button>
 
-          <p>
-            אין לך חשבון? <Link to="/signup">הרשם כאן</Link>
-          </p>
+          <p>אין לך חשבון? <Link to="/signup"> <span className="neon-link">הרשם כאן</span></Link></p>
         </form>
       )}
     </div>
