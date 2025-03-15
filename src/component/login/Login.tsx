@@ -21,13 +21,14 @@ const Login = observer(() => {
   const handleSignIn = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-    setError(""); 
-
+    setError("");
     const errorMessage = await signInWithEmail(email, password);
     if (errorMessage) {
-      setError(errorMessage); 
+      setError(errorMessage);
+    } else {
+      navigate("/lobby"); 
     }
-    
+  
     setIsLoading(false);
   };
 

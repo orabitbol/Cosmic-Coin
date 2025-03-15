@@ -58,35 +58,30 @@ import {
 
   
 
-  export const signInWithEmail = async (email: string, password: string): Promise<string | null> => {
+  export const signInWithEmail = async (email: string, password: string) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      return null; // No error (successful login)
-    } catch (error) {
-      if (error instanceof Error) {
-        return handleAuthError(error as AuthError);
+      return null; // ✅ No error, return null
+    } catch (error: any) {
+      console.error("❌ Error signing in:", error.code);
+      console.log("error.code: ",error.code)
+  
+      switch (error.code) {
+        case "auth/user-not-found":
+          return "⚠️ המשתמש לא נמצא במערכת.";
+        case "auth/wrong-password":
+          return "⚠️ הסיסמה שגויה.";
+        case "auth/invalid-email":
+          return "⚠️ כתובת האימייל אינה תקפה.";
+        case "auth/invalid-credential":
+          return "⚠️ האימייל או הסיסמה שגויים.";
+        default:
+          return `⚠️ שגיאה בלתי צפויה: ${error.message}`;
       }
-      return "⚠️ שגיאה בלתי צפויה, נסה שוב.";
     }
   };
 
-  const handleAuthError = (error: AuthError): string => {
-    switch (error.code) {
-      case "auth/invalid-email":
-        return "⚠️ כתובת המייל לא תקינה.";
-      case "auth/user-not-found":
-        return "⚠️ המשתמש לא נמצא במערכת.";
-      case "auth/wrong-password":
-        return "⚠️ סיסמה שגויה.";
-      case "auth/user-disabled":
-        return "⚠️ חשבון זה הושבת.";
-      case "auth/too-many-requests":
-        return "⚠️ יותר מדי ניסיונות שגויים, נסה שוב מאוחר יותר.";
-      default:
-        return "⚠️ שגיאה בלתי צפויה, נסה שוב.";
-    }
-  };
-  
+
 
   const createUserIfNotExists = async (uid: string, email: string) => {
     const userRef = doc(db, "users", uid);
