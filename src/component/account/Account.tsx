@@ -3,9 +3,11 @@ import { userStore } from "../../store/userStore";
 import { Container, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom"; 
 import "./account.scss";
+import { balanceStore } from "../../store/balanceStore";
 
 const Account = observer(() => {
-  const { user, balance, logout } = userStore;
+  const { user, logout } = userStore; 
+  const { balance } = balanceStore; 
   const navigate = useNavigate(); 
 
   const handleLogout = async () => {
