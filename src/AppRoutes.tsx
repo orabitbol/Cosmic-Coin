@@ -5,6 +5,7 @@ import GamePage from "./pages/gamePage/GamePage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import AccountPage from "./pages/accountPage/AccountPage";
 import SignUpPage from "./pages/signUpPage/SignUpPage";
+import HistoryPage from "./pages/historyPage/HistoryPage";
 
 
 const AppRoutes = () => (
@@ -16,6 +17,7 @@ const AppRoutes = () => (
       <Route path="/login" element={<LoginPage />} />
       <Route path="/account" element={<AccountPage />} />
       <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/history" element={<HistoryPage />} /> 
     </Routes>
   </BrowserRouter>
 );

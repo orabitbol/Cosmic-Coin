@@ -1,10 +1,16 @@
 import { makeAutoObservable } from "mobx";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+
+interface Transaction {
+  amount: number;
+  type: "win" | "loss" | "deposit";
+  date: string;
+}
 
 class BalanceStore {
   balance: number = 0;
-  transactions: { amount: number; type: string; date: string }[] = [];
+  transactions: Transaction[] = [];
   loading: boolean = true;
 
   constructor() {
@@ -21,7 +27,8 @@ class BalanceStore {
         this.balance = data.balance || 1000;
         this.transactions = data.transactions || [];
       } else {
-        await setDoc(userRef, { balance: 1000, transactions: [] });
+        console.warn("⚠️ משתמש חדש - יצירת יתרה ראשונית");
+        await updateDoc(userRef, { balance: 1000, transactions: [] });
         this.balance = 1000;
         this.transactions = [];
       }
@@ -35,8 +42,7 @@ class BalanceStore {
     if (!uid) return;
 
     this.balance += amount;
-
-    const transaction = {
+    const transaction: Transaction = {
       amount,
       type,
       date: new Date().toISOString(),
