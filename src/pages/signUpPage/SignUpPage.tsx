@@ -15,15 +15,17 @@ const SignUpPage = () => {
       setError("הסיסמאות אינן תואמות.");
       return;
     }
-
     try {
       await signUpWithEmail(email, password);
-      navigate("/lobby"); 
+      navigate("/lobby");
     } catch (err) {
-      setError("שגיאה בהרשמה: " + err.message);
+      if (err instanceof Error) {
+        setError("שגיאה בהרשמה: " + err.message);
+      } else {
+        setError("שגיאה בלתי צפויה בהרשמה.");
+      }
     }
   };
-
   return (
     <div className="signup-container">
       <h2>הרשמה</h2>
@@ -47,7 +49,9 @@ const SignUpPage = () => {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       <button onClick={handleSignUp}>הרשם</button>
-      <p>כבר יש לך חשבון? <a href="/login">התחבר</a></p>
+      <p>
+        כבר יש לך חשבון? <a href="/login">התחבר</a>
+      </p>
     </div>
   );
 };
