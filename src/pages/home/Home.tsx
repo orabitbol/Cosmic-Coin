@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Home = () => {
   return (
     <Container>
-      <Typography variant="h3">ברוכים הבאים ל-Crown Coins</Typography>
+      <Typography variant="h3">ברוכים הבאים ל- Cosmic Coins</Typography>
       <Button variant="contained" color="primary" component={Link} to="/lobby">
         כניסה ללובי המשחקים
       </Button>
