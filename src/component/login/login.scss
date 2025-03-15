@@ -1,22 +1,34 @@
+// 🎮 רקע כללי של העמוד
+body {
+  background: radial-gradient(circle, #1a1a2e, #0f3460);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+// 🎮 עיצוב הקונטיינר - מרכז את ה-Form באמצע המסך
 .login-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; // גורם ל-Form להיות במרכז המסך
+}
+
+// 🎮 תיבת התחברות - עיצוב ניאוני
+.login-form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
   text-align: center;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 350px;
   animation: fadeIn 0.5s ease-in-out;
 
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
   h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #00ffff;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
   }
 
   .input-group {
@@ -28,66 +40,94 @@
   input {
     width: 100%;
     padding: 12px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px;
     margin-top: 10px;
-    background-color: #007bff;
-    color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    outline: none;
+    transition: 0.3s;
+    text-align: center;
+
+    &:focus {
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+    }
+  }
+
+  // 🎮 עיצוב כפתורים עם אפקטים של גיימינג
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: 0.3s;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(45deg, #00ffff, #0077ff);
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.4);
 
     &:hover {
-      background-color: #0056b3;
+      background: linear-gradient(45deg, #0077ff, #00ffff);
+      transform: scale(1.05);
     }
 
     &:disabled {
-      background-color: #ccc;
+      background: gray;
       cursor: not-allowed;
     }
   }
 
+  // 🎮 הודעת שגיאה עם אנימציה ניאונית
   .error-message {
-    color: red;
+    color: #ff4444;
     font-weight: bold;
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 0, 0.2);
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px;
-    animation: fadeIn 0.5s ease-in-out;
+    margin-top: 10px;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    animation: shake 0.5s ease-in-out;
   }
 
   p {
     margin-top: 10px;
+    font-size: 14px;
   }
 
   a {
-    color: #007bff;
-    text-decoration: none;
+    color: #00ffff;
     font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
 
     &:hover {
-      text-decoration: underline;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
     }
   }
 }
 
+// 🎮 אנימציית כניסה
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
+}
+
+// 🎮 אנימציית שגיאה (רעידות)
+@keyframes shake {
+  0% { transform: translateX(-5px); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
 }
