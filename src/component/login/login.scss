@@ -82,16 +82,17 @@ body {
     }
   }
 
-  // 🎮 הודעת שגיאה עם אנימציה ניאונית
   .error-message {
-    color: #ff4444;
-    font-weight: bold;
+    color: red;
     background: rgba(255, 0, 0, 0.2);
     padding: 10px;
     border-radius: 5px;
-    margin-top: 10px;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
-    animation: shake 0.5s ease-in-out;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 
   p {
@@ -125,9 +126,19 @@ body {
 
 // 🎮 אנימציית שגיאה (רעידות)
 @keyframes shake {
-  0% { transform: translateX(-5px); }
-  25% { transform: translateX(5px); }
-  50% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(-5px);
+  }
+  25% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

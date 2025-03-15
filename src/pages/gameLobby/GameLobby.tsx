@@ -18,16 +18,13 @@ const GameLobby = observer(() => {
     }
   }, [userStore.user, navigate]);
   return (
+    
     <Container className="lobby-container">
       <div className="lobby-header">
         <Typography variant="h3">🎮 לובי המשחקים</Typography>
-        
-        {/* ✅ הוספת יתרת המשתמש */}
         <Typography variant="h6" className="balance-info">
           💰 יתרה: {balanceStore.balance} מטבעות
         </Typography>
-
-        {/* ✅ כפתור לטעינת מטבעות */}
         <Button
           variant="contained"
           color="primary"
@@ -35,8 +32,6 @@ const GameLobby = observer(() => {
         >
           💰 הטען 500 מטבעות
         </Button>
-
-        {/* ✅ כפתור להתנתקות */}
         <Button className="logout-button" onClick={logout}>
           ⬅️ התנתק
         </Button>
