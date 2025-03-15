@@ -9,7 +9,6 @@ import {
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
-// ✅ בדיקה שהמשתנים קיימים
 console.log("🔍 Checking Firebase env variables...");
 console.log("🔥 API Key:", import.meta.env.VITE_FIREBASE_API_KEY || "🚨 MISSING!");
 console.log("🔥 Auth Domain:", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "🚨 MISSING!");
@@ -19,9 +18,6 @@ console.log("🔥 Messaging Sender ID:", import.meta.env.VITE_FIREBASE_MESSAGING
 console.log("🔥 App ID:", import.meta.env.VITE_FIREBASE_APP_ID || "🚨 MISSING!");
 
 // ✅ אם אחד מהמשתנים חסר – זרוק שגיאה
-if (!import.meta.env.VITE_FIREBASE_API_KEY) {
-  throw new Error("🚨 Missing Firebase API Key!");
-}
 
 // ✅ קונפיגורציה של Firebase
 const firebaseConfig = {
