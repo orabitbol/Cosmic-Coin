@@ -8,26 +8,38 @@ export interface Game {
 export const games: Game[] = [
   {
     id: "1",
-    name: "Slot Machine",
-    thumbnail: "https://via.placeholder.com/150?text=Slot+Machine",
-    url: "https://example.com/game/slot-machine",
+    name: "🎰 Slot Machine",
+    thumbnail: "/images/slot-machine.jpg",
+    url: "/game/slot-machine",
   },
   {
     id: "2",
-    name: "Blackjack",
-    thumbnail: "https://via.placeholder.com/150?text=Blackjack",
-    url: "https://example.com/game/blackjack",
+    name: "🃏 Blackjack",
+    thumbnail: "/images/blackjack.jpg",
+    url: "/game/blackjack",
   },
   {
     id: "3",
-    name: "Roulette",
-    thumbnail: "https://via.placeholder.com/150?text=Roulette",
-    url: "https://example.com/game/roulette",
+    name: "🎲 Roulette",
+    thumbnail: "/images/roulette.jpg",
+    url: "/game/roulette",
+  },
+  {
+    id: "4",
+    name: "🎮 Poker",
+    thumbnail: "/images/poker.jpg",
+    url: "/game/poker",
+  },
+  {
+    id: "5",
+    name: "💎 Baccarat",
+    thumbnail: "/images/baccarat.jpg",
+    url: "/game/baccarat",
   },
 ];
 
 export const fetchGames = async (): Promise<Game[]> => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(games), 1000); // מדמה קריאה ל-API עם השהייה
+    setTimeout(() => resolve(games), 1000); 
   });
 };
