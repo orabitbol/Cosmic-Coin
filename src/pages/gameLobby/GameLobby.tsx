@@ -1,32 +1,41 @@
-import { Button, Container, Typography } from "@mui/material";
-import GameList from "../../component/gameList.tsx/GameList";
+import { observer } from "mobx-react-lite";
+import { userStore } from "../../store/userStore";
+import { balanceStore } from "../../store/balanceStore";
+import { Button, Typography, Container } from "@mui/material";
 import { logout } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+
 import "./gameLobby.scss";
+import GameList from "../../component/gameList.tsx/GameList";
 
-const GameLobby = () => {
-  const navigate = useNavigate(); 
-
-  const handleLogout = async () => {
-    await logout();
-    navigate("/login"); 
-  };
-
+const GameLobby = observer(() => {
   return (
-    <div className="lobby-page">
-      <Container className="lobby-container">
-        <Typography variant="h3" gutterBottom className="lobby-title">
-          🎮 לובי המשחקים
+    <Container className="lobby-container">
+      <div className="lobby-header">
+        <Typography variant="h3">🎮 לובי המשחקים</Typography>
+        
+        {/* ✅ הוספת יתרת המשתמש */}
+        <Typography variant="h6" className="balance-info">
+          💰 יתרה: {balanceStore.balance} מטבעות
         </Typography>
 
-        <GameList />
+        {/* ✅ כפתור לטעינת מטבעות */}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => balanceStore.updateBalance(userStore.user?.uid || "", 500, "deposit")}
+        >
+          💰 הטען 500 מטבעות
+        </Button>
 
-        <Button className="logout-button" onClick={handleLogout}>
+        {/* ✅ כפתור להתנתקות */}
+        <Button className="logout-button" onClick={logout}>
           ⬅️ התנתק
         </Button>
-      </Container>
-    </div>
+      </div>
+      
+      <GameList />
+    </Container>
   );
-};
+});
 
 export default GameLobby;
